@@ -16,12 +16,15 @@ export interface MonogramProjectState {
   letterDepth: number;
   letterDepthColor: string;
   letterShadowIntensity: number;
+  letterWeight?: number; // 300, 400 (regular), 500, 600, 700, 900
+  letterWidthScale?: number; // 0.7 - 1.3 (condensed/slender to expanded)
   
   // Foreground Name Styling
   nameColor: string;
   nameDepth: number;
   nameDepthColor: string;
   nameShadowIntensity: number;
+  nameWeight?: number;
   
   // Board & Spacing Layout
   backgroundColor: string;

@@ -44,6 +44,8 @@ export function registerCustomFontInDOM(font: CustomFont): void {
 @font-face {
   font-family: '${font.id}';
   src: url('${font.dataUrl}') format('${formatStr}');
+  font-weight: 100 900;
+  font-style: normal;
   font-display: swap;
 }
 `;
@@ -54,7 +56,10 @@ export function registerCustomFontInDOM(font: CustomFont): void {
 
       // Also register via FontFace API for instant availability
       if ('fonts' in document) {
-        const fontFace = new FontFace(font.id, `url(${font.dataUrl})`);
+        const fontFace = new FontFace(font.id, `url(${font.dataUrl})`, {
+          weight: '100 900',
+          style: 'normal',
+        });
         fontFace.load().then((loadedFace) => {
           document.fonts.add(loadedFace);
         }).catch((err) => {

@@ -375,6 +375,141 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                 ))}
               </div>
             </div>
+
+            {/* Spessore & Snellezza Lettera Grande (Risolve il problema del font spesso) */}
+            <div className="space-y-3 pt-3 border-t border-slate-800">
+              <div className="flex items-center justify-between">
+                <label className="text-xs font-semibold uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
+                  <Sliders size={13} className="text-amber-400" />
+                  <span>4. Spessore & Snellezza Lettera</span>
+                </label>
+                <span className="text-[10px] text-emerald-400 font-bold bg-emerald-950/70 border border-emerald-500/30 px-2 py-0.5 rounded-full">
+                  Foto 1 vs Foto 2
+                </span>
+              </div>
+
+              {/* Spessore del Tratto (Font Weight) */}
+              <div className="space-y-1.5">
+                <div className="flex justify-between text-xs">
+                  <span className="text-slate-300 font-medium">Spessore del Tratto (Peso Font):</span>
+                  <span className="font-mono text-amber-400 font-bold">
+                    {project.letterWeight === 300
+                      ? 'Sottile (Light 300)'
+                      : (project.letterWeight || 400) === 400
+                      ? 'Normale (Regular 400 - Foto 1)'
+                      : project.letterWeight === 500
+                      ? 'Medio (500)'
+                      : project.letterWeight === 600
+                      ? 'Semigrassetto (600)'
+                      : project.letterWeight === 700
+                      ? 'Grassetto (Bold 700)'
+                      : 'Black (Massiccio 900)'}
+                  </span>
+                </div>
+                <div className="grid grid-cols-3 gap-1.5">
+                  {[
+                    { label: 'Sottile (300)', weight: 300 },
+                    { label: 'Normale (400)', weight: 400, highlight: true },
+                    { label: 'Medio (500)', weight: 500 },
+                    { label: 'SemiBold (600)', weight: 600 },
+                    { label: 'Grassetto (700)', weight: 700 },
+                    { label: 'Black (900)', weight: 900 },
+                  ].map((w) => (
+                    <button
+                      key={w.weight}
+                      onClick={() => onUpdateProject({ letterWeight: w.weight })}
+                      className={`py-1.5 px-2 text-xs rounded-xl border text-center transition-all ${
+                        (project.letterWeight || 400) === w.weight
+                          ? 'border-amber-400 bg-amber-500/20 text-white font-bold shadow-xs'
+                          : 'border-slate-800 bg-slate-800/40 hover:bg-slate-800 text-slate-300'
+                      }`}
+                    >
+                      <span>{w.label}</span>
+                      {w.highlight && (
+                        <span className="block text-[9px] text-amber-400 font-normal">
+                          ★ Come Foto 1
+                        </span>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Larghezza / Snellezza (Scala Orizzontale X) */}
+              <div className="space-y-1.5 pt-1">
+                <div className="flex justify-between text-xs">
+                  <span className="text-slate-300 font-medium">Larghezza Lettera (Snella vs Larga):</span>
+                  <span className="font-mono text-amber-400 font-bold">
+                    {Math.round((project.letterWidthScale || 1.0) * 100)}%
+                  </span>
+                </div>
+                <input
+                  type="range"
+                  min="0.65"
+                  max="1.35"
+                  step="0.01"
+                  value={project.letterWidthScale || 1.0}
+                  onChange={(e) =>
+                    onUpdateProject({ letterWidthScale: parseFloat(e.target.value) })
+                  }
+                  className="w-full accent-amber-400 cursor-pointer"
+                />
+                <div className="grid grid-cols-4 gap-1 pt-0.5">
+                  <button
+                    onClick={() => onUpdateProject({ letterWidthScale: 0.78 })}
+                    className={`text-[10px] py-1 rounded border transition-all ${
+                      Math.abs((project.letterWidthScale || 1.0) - 0.78) < 0.02
+                        ? 'bg-amber-400 text-slate-950 font-bold border-amber-400'
+                        : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border-slate-700'
+                    }`}
+                  >
+                    Molto Snella (78%)
+                  </button>
+                  <button
+                    onClick={() => onUpdateProject({ letterWidthScale: 0.88 })}
+                    className={`text-[10px] py-1 rounded border transition-all ${
+                      Math.abs((project.letterWidthScale || 1.0) - 0.88) < 0.02
+                        ? 'bg-amber-400 text-slate-950 font-bold border-amber-400'
+                        : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border-slate-700'
+                    }`}
+                  >
+                    Snella / Foto 1 (88%)
+                  </button>
+                  <button
+                    onClick={() => onUpdateProject({ letterWidthScale: 1.0 })}
+                    className={`text-[10px] py-1 rounded border transition-all ${
+                      Math.abs((project.letterWidthScale || 1.0) - 1.0) < 0.02
+                        ? 'bg-amber-400 text-slate-950 font-bold border-amber-400'
+                        : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border-slate-700'
+                    }`}
+                  >
+                    Naturale (100%)
+                  </button>
+                  <button
+                    onClick={() => onUpdateProject({ letterWidthScale: 1.15 })}
+                    className={`text-[10px] py-1 rounded border transition-all ${
+                      Math.abs((project.letterWidthScale || 1.0) - 1.15) < 0.02
+                        ? 'bg-amber-400 text-slate-950 font-bold border-amber-400'
+                        : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border-slate-700'
+                    }`}
+                  >
+                    Allargata (115%)
+                  </button>
+                </div>
+              </div>
+
+              {/* Spiegazione e Risoluzione per l'utente */}
+              <div className="p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl space-y-1 text-[11px] text-amber-200/90 leading-relaxed">
+                <div className="font-bold text-amber-300 flex items-center gap-1">
+                  <span>💡 Come è stato risolto:</span>
+                </div>
+                <p>
+                  Nei software di grafica il font viene mostrato con il suo tratto originale (Regular 400).
+                  Selezionando <strong>Normale (400)</strong> e una larghezza dell&apos;<strong>85%-100%</strong>,
+                  la lettera acquista la forma affusolata, sottile ed elegante della prima foto senza alcun ispessimento forzato.
+                </p>
+              </div>
+            </div>
           </div>
         )}
 
@@ -761,6 +896,48 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                   }
                   className="w-full accent-amber-400 cursor-pointer"
                 />
+                <div className="grid grid-cols-4 gap-1 pt-0.5">
+                  <button
+                    onClick={() => onUpdateProject({ letterDepth: 0 })}
+                    className={`text-[10px] py-0.5 rounded border transition-all ${
+                      project.letterDepth === 0
+                        ? 'bg-amber-400 text-slate-950 font-bold border-amber-400'
+                        : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border-slate-700'
+                    }`}
+                  >
+                    Piatto 2D
+                  </button>
+                  <button
+                    onClick={() => onUpdateProject({ letterDepth: 3 })}
+                    className={`text-[10px] py-0.5 rounded border transition-all ${
+                      project.letterDepth === 3
+                        ? 'bg-amber-400 text-slate-950 font-bold border-amber-400'
+                        : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border-slate-700'
+                    }`}
+                  >
+                    Fine / Foto 1
+                  </button>
+                  <button
+                    onClick={() => onUpdateProject({ letterDepth: 7 })}
+                    className={`text-[10px] py-0.5 rounded border transition-all ${
+                      project.letterDepth === 7
+                        ? 'bg-amber-400 text-slate-950 font-bold border-amber-400'
+                        : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border-slate-700'
+                    }`}
+                  >
+                    Rilievo (7px)
+                  </button>
+                  <button
+                    onClick={() => onUpdateProject({ letterDepth: 12 })}
+                    className={`text-[10px] py-0.5 rounded border transition-all ${
+                      project.letterDepth === 12
+                        ? 'bg-amber-400 text-slate-950 font-bold border-amber-400'
+                        : 'bg-slate-800 hover:bg-slate-700 text-slate-300 border-slate-700'
+                    }`}
+                  >
+                    Spesso (12px)
+                  </button>
+                </div>
 
                 <div className="flex justify-between text-xs pt-1">
                   <span className="text-slate-300">Intensità Ombra Portata</span>
@@ -1037,6 +1214,29 @@ export const ControlPanel: React.FC<ControlPanelProps> = ({
                   value={project.letterSize}
                   onChange={(e) =>
                     onUpdateProject({ letterSize: parseInt(e.target.value, 10) })
+                  }
+                  className="w-full accent-amber-400 cursor-pointer"
+                />
+              </div>
+
+              {/* Larghezza / Snellezza Lettera */}
+              <div className="space-y-1.5">
+                <div className="flex justify-between text-xs">
+                  <span className="text-slate-300 font-medium">
+                    Larghezza / Snellezza Lettera (Scala X)
+                  </span>
+                  <span className="font-mono text-amber-400">
+                    {Math.round((project.letterWidthScale || 1.0) * 100)}%
+                  </span>
+                </div>
+                <input
+                  type="range"
+                  min="0.65"
+                  max="1.35"
+                  step="0.01"
+                  value={project.letterWidthScale || 1.0}
+                  onChange={(e) =>
+                    onUpdateProject({ letterWidthScale: parseFloat(e.target.value) })
                   }
                   className="w-full accent-amber-400 cursor-pointer"
                 />

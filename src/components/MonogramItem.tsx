@@ -14,10 +14,13 @@ interface MonogramItemProps {
   letterDepth: number;
   letterDepthColor: string;
   letterShadowIntensity: number;
+  letterWeight?: number;
+  letterWidthScale?: number;
   nameColor: string;
   nameDepth: number;
   nameDepthColor: string;
   nameShadowIntensity: number;
+  nameWeight?: number;
   letterSize: number;
   letterSpacing?: number;
   nameBaseSize: number;
@@ -41,10 +44,13 @@ export const MonogramItem: React.FC<MonogramItemProps> = ({
   letterDepth,
   letterDepthColor,
   letterShadowIntensity,
+  letterWeight = 400,
+  letterWidthScale = 1.0,
   nameColor,
   nameDepth,
   nameDepthColor,
   nameShadowIntensity,
+  nameWeight = 400,
   letterSize,
   letterSpacing = 0,
   nameBaseSize,
@@ -298,14 +304,18 @@ export const MonogramItem: React.FC<MonogramItemProps> = ({
       <div className="relative flex items-center justify-center my-auto">
         {/* Background Big Uppercase Letter */}
         <div
-          className="select-none leading-none tracking-normal font-black text-center whitespace-nowrap"
+          className="select-none leading-none tracking-normal text-center whitespace-nowrap inline-block"
           style={{
             fontFamily: bigLetterFont.family,
             fontSize: `${letterSize}px`,
+            fontWeight: letterWeight,
+            fontSynthesis: 'none',
+            WebkitFontSmoothing: 'antialiased',
+            MozOsxFontSmoothing: 'grayscale',
             color: letterColor,
             textShadow: letterShadow,
             filter: 'contrast(1.05)',
-            transform: 'translateZ(0)',
+            transform: `translateZ(0) scaleX(${letterWidthScale})`,
             letterSpacing: `${letterSpacing}px`,
             marginRight: letterSpacing !== 0 ? `-${letterSpacing}px` : undefined,
           }}
@@ -337,6 +347,10 @@ export const MonogramItem: React.FC<MonogramItemProps> = ({
           style={{
             fontFamily: scriptFont.family,
             fontSize: `${computedNameSize}px`,
+            fontWeight: nameWeight || 400,
+            fontSynthesis: 'none',
+            WebkitFontSmoothing: 'antialiased',
+            MozOsxFontSmoothing: 'grayscale',
             color: nameColor,
             textShadow: nameShadow,
             transform: `translate(${slot.offsetX}px, ${slot.offsetY}px)`,

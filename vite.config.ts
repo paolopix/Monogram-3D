@@ -5,8 +5,6 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
-    // Percorso del repository GitHub Pages: https://paolopix.github.io/Monogram-3D/
-    base: '/Monogram-3D/',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
