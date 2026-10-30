@@ -1,0 +1,6 @@
+{
+  "name": "MonogramStudio 3D - Generatore Monogrammi con Nome",
+  "description": "Crea e personalizza splendidi monogrammi 3D in legno e acrilico con lettera maiuscola, nome in corsivo sovrapposto, 8 font a confronto, posizionamento personalizzato e download ad alta risoluzione.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+[data-export-ignore="true"],
+.export-ignore {
+  /* Ensure export filters exclude these cleanly */
+  pointer-events: auto;
+}
