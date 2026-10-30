@@ -25,7 +25,7 @@ jobs:
         with:
           node-version: 22
       - name: Installa le dipendenze
-        run: npm install
+        run: npm install --legacy-peer-deps
       - name: Compila l'applicazione
         run: npm run build
       - name: Configura GitHub Pages
