@@ -67,3 +67,22 @@ Applicazione React + Vite + TypeScript + Tailwind CSS per la generazione, antepr
 - `npm run build`: Compila l'applicazione per la produzione nella cartella `dist`.
 - `npm run preview`: Visualizza in locale l'anteprima della build di produzione.
 - `./export-source.sh`: Rigenera l'archivio ZIP con tutti i file sorgente aggiornati.
+
+---
+
+### ⚠️ Risoluzione problemi su Windows (Cannot find native binding `@rolldown/binding-win32-x64-msvc`)
+Se eseguendo `npm run dev` su Windows ricevi l'errore:
+`Error: Cannot find native binding... Cannot find module '@rolldown/binding-win32-x64-msvc'`
+
+Si tratta di un noto bug di npm su Windows che tralascia le dipendenze binarie native. Per risolvere esegui semplicemente:
+```powershell
+npm install @rolldown/binding-win32-x64-msvc
+npm run dev
+```
+oppure rimuovi `node_modules` e reinstalla:
+```powershell
+Remove-Item -Recurse -Force node_modules, package-lock.json
+npm install
+npm run dev
+```
+
