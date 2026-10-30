@@ -86,3 +86,20 @@ npm install
 npm run dev
 ```
 
+---
+
+## 🌐 Deploy Automatico su GitHub Pages (GitHub Actions)
+
+Il progetto include già il file di workflow `.github/workflows/deploy.yml` pronto all'uso.
+
+### Come attivarlo sul tuo repository GitHub:
+1. Carica il progetto su una repository GitHub (es. branch `main` o `master`).
+2. Su GitHub, apri la pagina del repository e vai su:
+   **Settings** (Impostazioni) ➔ **Pages** (nel menu laterale a sinistra).
+3. Sotto la voce **Build and deployment** ➔ **Source**, seleziona:
+   👉 **GitHub Actions** (invece di "Deploy from a branch").
+4. È tutto! Ad ogni nuovo `push` sul branch `main` o `master`, GitHub compilerà automaticamente l'app e la pubblicherà online sul tuo link pubblico:
+   `https://<tuo-utente>.github.io/<nome-repo>/`
+5. Puoi anche avviare il deploy manualmente in qualsiasi momento dalla scheda **Actions** ➔ **Deploy to GitHub Pages** ➔ **Run workflow**.
+
+

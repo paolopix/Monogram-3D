@@ -27,8 +27,8 @@ def create_zip(target_zip_path):
     file_count = 0
     with zipfile.ZipFile(target_zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
         for root, dirs, files in os.walk(PROJECT_ROOT):
-            # Prune excluded directories
-            dirs[:] = [d for d in dirs if d not in EXCLUDE_DIRS and not d.startswith('.git')]
+            # Prune excluded directories (keep .github, exclude .git)
+            dirs[:] = [d for d in dirs if d not in EXCLUDE_DIRS and d != '.git']
             
             for file in sorted(files):
                 if file.startswith('.DS_Store'):
