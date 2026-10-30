@@ -1,0 +1,40 @@
+name: Pubblica MonogramStudio 3D su GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Scarica il repository
+        uses: actions/checkout@v4
+      - name: Configura Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Installa le dipendenze
+        run: npm install
+      - name: Compila l'applicazione
+        run: npm run build
+      - name: Configura GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Carica i file del sito
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+      - name: Pubblica il sito
+        id: deployment
+        uses: actions/deploy-pages@v4
